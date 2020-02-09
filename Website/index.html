@@ -1,0 +1,45 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <link rel="stylesheet" type="css/main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+</head>
+
+<body>
+	    <div id="tableContainer"></div>
+
+    <script>
+    	
+function generateGrid( rows, cols ) {
+    var grid = "<table>";
+    for ( row = 1; row <= rows; row++ ) {
+        grid += "<tr>"; 
+        for ( col = 1; col <= cols; col++ ) {      
+            grid += "<td></td>";
+        }
+        grid += "</tr>"; 
+    }
+    return grid;
+}
+
+$( "#tableContainer" ).append( generateGrid( 5, 5) );
+
+$( "td" ).click(function() {
+    var index = $( "td" ).index( this );
+    var row = Math.floor( ( index ) / 5) + 1;
+    var col = ( index % 5 ) + 1;
+    $( "span" ).text( "That was row " + row + " and col " + col );
+    $( this ).css( 'background-color', 'red' );
+});
+    </script>
+</body>
+</html>
