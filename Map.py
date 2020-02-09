@@ -193,9 +193,13 @@ class Map:
         for i in res_neigbhor:
             if i.terrain == TerrainType.River or i.onFire == True:
                 res_neigbhor.remove(i)
-        if len(res_neigbhor) > 0:
-            loc = res_neigbhor[0]
-            self.burnLocation(loc)
+                continue
+            else:
+                loc = res_neigbhor[0]
+                if loc.onFire == True:
+                    continue
+                else:
+                    self.burnLocation(loc)
 
     def toCsv(self):
         csv = []
