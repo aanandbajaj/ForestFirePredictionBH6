@@ -1,4 +1,5 @@
 import Location
+import random
 from Location import Location
 from Location import TerrainType
 from random import randint
@@ -35,6 +36,8 @@ class Map:
                     print(Back.BLUE, end="")
                 elif j.terrain == TerrainType.Wetland:
                     print(Back.LIGHTGREEN_EX, end="")
+                elif j.terrain == TerrainType.Forest:
+                    print(Back.GREEN, end="")
                 print(j, end="")
             print(" ")
 
@@ -82,4 +85,36 @@ class Map:
             loc = self.getLocation(newX, newY)
             if loc.terrain == TerrainType.NotAssigned:
                 loc.terrain = TerrainType.Wetland
+
+    def drawForest(self, fNum):
+        while fNum > 0:
+            x = randint(1, self.sizeX)
+            y = randint(1, self.sizeY)
+            loc = self.getLocation(x, y)
+            if loc.terrain == TerrainType.NotAssigned:
+                self.growForestRec(x, y, 0)
+            fNum -= 1
+
+    def growForestRec(self, x, y, generation):
+        if (x == 0) or (y == 0) or (x > self.sizeX) or (y > self.sizeY):
+
+            return None
+        else:
+            r0 = randint(0,99)
+            if r0 > (15 * generation):
+                loc = self.getLocation(x,y)
+                loc.terrain = TerrainType.Forest
+                dir_lst = ["N", "S", "E", "W"]
+                while(len(dir_lst) > 0):
+                    random.shuffle(dir_lst)
+                    dir = dir_lst[0]
+                    if dir == "N":
+                        self.growForestRec(x, y+1, generation+1)
+                    elif dir == "S":
+                        self.growForestRec(x, y-1, generation+1)
+                    elif dir == "E":
+                        self.growForestRec(x+1, y, generation+1)
+                    else:
+                        self.growForestRec(x-1, y, generation+1)
+                    dir_lst.pop(0)
 
