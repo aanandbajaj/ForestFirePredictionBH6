@@ -10,11 +10,11 @@ Original file is located at
 # Commented out IPython magic to ensure Python compatibility.
 import pandas as pd  
 import numpy as np  
-import matplotlib.pyplot as plt  
-import seaborn as seabornInstance 
-from sklearn.model_selection import train_test_split 
-from sklearn.linear_model import LinearRegression
-from sklearn import metrics
+# import matplotlib.pyplot as plt
+# import seaborn as seabornInstance
+# from sklearn.model_selection import train_test_split
+# from sklearn.linear_model import LinearRegression
+# from sklearn import metrics
 # %matplotlib inline
 import statsmodels.api as sm
 from scipy import stats

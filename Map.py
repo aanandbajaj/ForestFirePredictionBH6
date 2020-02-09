@@ -1,5 +1,6 @@
 import Location
 import random
+import jsonpickle
 from Location import Location
 from Location import TerrainType
 from random import randint
@@ -29,6 +30,15 @@ class Map:
         if x<1 or y<1 or x>=self.sizeX+1 or y>=self.sizeY+1:
             return None
         return self.rows[x-1][y-1]
+
+    def setGlobalAttribute(self, temp, relHumidity, wind, rain):
+        self.globalAttribute['temp'] = temp
+        self.globalAttribute['relHumidity'] = relHumidity
+        self.globalAttribute['wind'] = wind
+        self.globalAttribute['rain'] = rain
+
+    def getGlobalAttribute(self):
+        return [self.globalAttribute['temp'], self.globalAttribute['relHumidity'], self.globalAttribute['wind'], self.globalAttribute['rain']]
 
     def printMap(self):
         for i in self.rows:
