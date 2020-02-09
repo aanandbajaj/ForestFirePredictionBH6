@@ -1,45 +1,15 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-
-  <title>The HTML5 Herald</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
-  <link rel="stylesheet" type="css/main.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-
+  <link rel="stylesheet" href="css/main.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
 
 </head>
-
 <body>
-	    <div id="tableContainer"></div>
-
-    <script>
-    	
-function generateGrid( rows, cols ) {
-    var grid = "<table>";
-    for ( row = 1; row <= rows; row++ ) {
-        grid += "<tr>"; 
-        for ( col = 1; col <= cols; col++ ) {      
-            grid += "<td></td>";
-        }
-        grid += "</tr>"; 
-    }
-    return grid;
-}
-
-$( "#tableContainer" ).append( generateGrid( 5, 5) );
-
-$( "td" ).click(function() {
-    var index = $( "td" ).index( this );
-    var row = Math.floor( ( index ) / 5) + 1;
-    var col = ( index % 5 ) + 1;
-    $( "span" ).text( "That was row " + row + " and col " + col );
-    $( this ).css( 'background-color', 'red' );
-});
-    </script>
+  <!-- <input type = "button" id="bClick" onclick="myFunction()"> -->
+  Rows: <input type="number" name="Rows" id="Rows"><br> Columns: <input type="number" name="Columns" id="Columns"><br> Mines: <input type="number" name="mines"> <br><br>
+  <button onclick="generateGrid(document.getElementById('Rows').value, document.getElementById('Columns').value)"> Click for Grid </button>
+  <div id="tableContainer"></div>
 </body>
-</html>
+</html
