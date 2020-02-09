@@ -9,7 +9,8 @@ class Location:
         self.terrain = TerrainType.NotAssigned
 
     def __str__(self):
-        string = "Location: " + str(self.x) + " " + str(self.y) + " type: "
+        string = "Location:\t" + str(self.x) + "\t" + str(self.y) + "; "
+        string2 = ""
         return string
 
 class TerrainType(Enum):
