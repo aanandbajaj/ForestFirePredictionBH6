@@ -38,5 +38,5 @@ while(i < area):
     map_list.append(jsonpickle.encode(map))
     map.printMap()
 
-with open('mapfile.txt', 'w') as outfile:
+with open('mapfile.json', 'w') as outfile:
     json.dump(map_list, outfile)
