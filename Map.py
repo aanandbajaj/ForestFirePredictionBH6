@@ -10,6 +10,8 @@ class Map:
 
     def __init__(self, sizeX, sizeY):
 
+        self.time = 0
+
         # size of the map
         self.sizeX = sizeX
         self.sizeY = sizeY
@@ -25,6 +27,9 @@ class Map:
                 location = Location(i, j)
                 elements.append(location)
             self.rows.append(elements)
+
+    def timePass(self):
+        self.time += 1
 
     def getLocation(self, x, y):
         if x<1 or y<1 or x>=self.sizeX+1 or y>=self.sizeY+1:
@@ -185,6 +190,15 @@ class Map:
         res_neigbhor.sort(key=generateFireValue)
         loc = res_neigbhor[0]
         self.burnLocation(loc)
+
+    def toCsv(self):
+        csv = []
+
+        for i in self.rows:
+            for j in i:
+                s = str(j.x) + ", " + str(j.y) + ", " + str(j.terrain) + ", " + str(j.onFire) + ", " + str(self.time)
+                csv.append(s)
+        return csv
 
 def generateFireValue(coe):
     r = randint(0, 9)
