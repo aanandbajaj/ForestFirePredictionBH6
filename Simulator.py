@@ -15,8 +15,8 @@ wind = int(sys.argv[3]) # 1 to 9
 rain = int(sys.argv[4]) # 0 to 6
 
 map.setGlobalAttribute(temp, relHumidity, wind, rain)
-map.drawRiver(2)
-map.drawForest(5)
+map.drawRiver(3)
+map.drawForest(8)
 map.fillField()
 map.printMap() # print original map
 

@@ -191,7 +191,7 @@ class Map:
         res_neigbhor.sort(key=generateFireValue)
 
         for i in res_neigbhor:
-            if i.terrain == TerrainType.River or i.onFire:
+            if i.terrain == TerrainType.River or i.onFire == True:
                 res_neigbhor.remove(i)
         if len(res_neigbhor) > 0:
             loc = res_neigbhor[0]
