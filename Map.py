@@ -14,6 +14,8 @@ class Map:
 
         # initialize the map
         self.rows = []
+        self.globalAttribute = {}
+        self.fireLocation = []
         element_init = []
         for i in range(1, sizeY+1):
             elements = element_init.copy()
@@ -127,3 +129,8 @@ class Map:
             for j in i:
                 if j.terrain == TerrainType.NotAssigned:
                     j.terrain = TerrainType.Field
+
+    def burnLocation(self, x, y):
+        loc = self.getLocation(x, y)
+        loc.burn()
+        self.fireLocation.append(loc)

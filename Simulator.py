@@ -6,3 +6,4 @@ map.drawRiver(1)
 map.drawForest(3)
 map.fillField()
 map.printMap()
+

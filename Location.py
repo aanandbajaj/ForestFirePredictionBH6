@@ -7,11 +7,15 @@ class Location:
         self.x = x
         self.y = y
         self.terrain = TerrainType.NotAssigned
+        self.onFire = False
 
     def __str__(self):
         string = "Location:\t" + str(self.x) + "\t" + str(self.y) + "; "
         string2 = ""
         return string
+
+    def burn(self):
+        self.onFire = True
 
 class TerrainType(Enum):
     NotAssigned = 0
