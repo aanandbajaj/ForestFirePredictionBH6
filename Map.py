@@ -30,6 +30,7 @@ class Map:
     def printMap(self):
         for i in self.rows:
             for j in i:
+                # Back.RESET()
                 if(j.terrain == TerrainType.NotAssigned): # not assigned color
                     print(Back.WHITE, end="")
                 elif j.terrain == TerrainType.River:
@@ -38,6 +39,8 @@ class Map:
                     print(Back.LIGHTGREEN_EX, end="")
                 elif j.terrain == TerrainType.Forest:
                     print(Back.GREEN, end="")
+                elif j.terrain == TerrainType.Field:
+                    print(Back.YELLOW, end="")
                 print(j, end="")
             print(" ")
 
@@ -118,3 +121,9 @@ class Map:
                         self.growForestRec(x-1, y, generation+1)
                     dir_lst.pop(0)
 
+    # field the rest as field land
+    def fillField(self):
+        for i in self.rows:
+            for j in i:
+                if j.terrain == TerrainType.NotAssigned:
+                    j.terrain = TerrainType.Field
