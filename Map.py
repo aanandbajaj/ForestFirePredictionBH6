@@ -26,7 +26,7 @@ class Map:
             self.rows.append(elements)
 
     def getLocation(self, x, y):
-        if x<1 or y<1 or x>self.sizeX+1 or y>self.sizeY+1:
+        if x<1 or y<1 or x>=self.sizeX+1 or y>=self.sizeY+1:
             return None
         return self.rows[x-1][y-1]
 
@@ -34,7 +34,7 @@ class Map:
         for i in self.rows:
             for j in i:
                 # Back.RESET()
-                if(j.terrain == TerrainType.NotAssigned): # not assigned color
+                if j.terrain == TerrainType.NotAssigned: # not assigned color
                     print(Back.WHITE, end="")
                 elif j.terrain == TerrainType.River:
                     print(Back.BLUE, end="")
@@ -44,6 +44,8 @@ class Map:
                     print(Back.GREEN, end="")
                 elif j.terrain == TerrainType.Field:
                     print(Back.YELLOW, end="")
+                if j.onFire == True:
+                    print(Back.RED, end="")
                 print(j, end="")
             print(" ")
 
@@ -59,15 +61,15 @@ class Map:
 
     # Draw a river start from position (x,y) recursively
     def drawRiverRec(self, x, y, directionX, directionY):
-        if (x == 0) or (y == 0) or (x > self.sizeX) or (y > self.sizeY):
+        if (x <= 1) or (y <= 1) or (x > self.sizeX) or (y > self.sizeY):
 
             return None
         else:
             loc = self.getLocation(x, y)
             loc.terrain = TerrainType.River
-            self.drawwetland(x,y)
+            #self.drawwetland(x, y)
             # print("Drawn River at: " + str(x) + " " + str(y)) # for debug
-            direction = randint(1,4)
+            direction = randint(1, 4)
             if direction == 1:
                 # print("River flowing to " + str(x+directionX) + " " + str(y+directionY))
                 return self.drawRiverRec(x+directionX, y+directionY, directionX, directionY)
@@ -102,7 +104,7 @@ class Map:
             fNum -= 1
 
     def growForestRec(self, x, y, generation):
-        if (x == 0) or (y == 0) or (x > self.sizeX) or (y > self.sizeY):
+        if (x <= 1) or (y <= 1) or (x > self.sizeX) or (y > self.sizeY):
 
             return None
         else:
@@ -131,7 +133,49 @@ class Map:
                 if j.terrain == TerrainType.NotAssigned:
                     j.terrain = TerrainType.Field
 
-    def burnLocation(self, x, y):
+    def spawnFire(self):
+        x = randint(1, self.sizeX)
+        y = randint(1, self.sizeY)
         loc = self.getLocation(x, y)
+        if loc.terrain != TerrainType.River or loc.terrain != TerrainType.Desert:
+            if loc.onFire == False:
+                self.burnLocation(loc)
+                return
+        self.spawnFire()
+
+    def burnLocation(self, loc):
         loc.burn()
         self.fireLocation.append(loc)
+
+
+    def firespread(self, total):
+        while(len(self.fireLocation) < total): # when there is not enough fire
+            for i in self.fireLocation:
+                self.firespreadRec(i)
+                if len(self.fireLocation) == total:
+                    return
+
+
+
+    def firespreadRec(self, loc):
+        x = loc.x
+        y = loc.y
+        neighbor = []
+        neighbor.append(self.getLocation(x-1, y-1))
+        neighbor.append(self.getLocation(x, y-1))
+        neighbor.append(self.getLocation(x+1, y-1))
+        neighbor.append(self.getLocation(x-1, y))
+        neighbor.append(self.getLocation(x+1, y))
+        neighbor.append(self.getLocation(x-1, y+1))
+        neighbor.append(self.getLocation(x, y+1))
+        neighbor.append(self.getLocation(x+1, y+1))
+
+        res_neigbhor = list(filter(None, neighbor))
+
+        res_neigbhor.sort(key=generateFireValue)
+        loc = res_neigbhor[0]
+        self.burnLocation(loc)
+
+def generateFireValue(coe):
+    r = randint(0, 9)
+    return r * coe.getFireSpeadFactor()

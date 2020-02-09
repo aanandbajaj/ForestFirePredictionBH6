@@ -17,6 +17,21 @@ class Location:
     def burn(self):
         self.onFire = True
 
+    def getFireSpeadFactor(self):
+        if self.terrain == TerrainType.NotAssigned:
+            return 1
+        elif self.terrain == TerrainType.Field:
+            return 0.6
+        elif self.terrain == TerrainType.Forest:
+            return 0.8
+        elif self.terrain == TerrainType.Wetland:
+            return 0.3
+        elif self.terrain == TerrainType.River:
+            return 0
+        elif self.terrain == TerrainType.Desert:
+            return 0
+
+
 class TerrainType(Enum):
     NotAssigned = 0
     Field = 1
