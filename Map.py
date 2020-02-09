@@ -6,6 +6,7 @@ from random import randint
 from colorama import Fore, Back, Style
 
 class Map:
+
     def __init__(self, sizeX, sizeY):
 
         # size of the map
