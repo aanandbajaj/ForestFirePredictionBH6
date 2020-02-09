@@ -189,8 +189,13 @@ class Map:
         res_neigbhor = list(filter(None, neighbor))
 
         res_neigbhor.sort(key=generateFireValue)
-        loc = res_neigbhor[0]
-        self.burnLocation(loc)
+
+        for i in res_neigbhor:
+            if i.terrain == TerrainType.River or i.onFire:
+                res_neigbhor.remove(i)
+        if len(res_neigbhor) > 0:
+            loc = res_neigbhor[0]
+            self.burnLocation(loc)
 
     def toCsv(self):
         csv = []
