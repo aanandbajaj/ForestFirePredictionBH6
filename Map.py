@@ -1,6 +1,5 @@
 import Location
 import random
-import jsonpickle
 from Location import Location
 from Location import TerrainType
 from random import randint
@@ -70,6 +69,8 @@ class Map:
         y = randint(1, self.sizeY)
         directionX = randint(-1, 1)
         directionY = randint(-1, 1)
+        if directionX == 0 and directionY ==0:
+            directionX = 1;
         for i in range(0, rNum):
             self.drawRiverRec(x, y, directionX, directionY)
         return None
@@ -188,8 +189,13 @@ class Map:
         res_neigbhor = list(filter(None, neighbor))
 
         res_neigbhor.sort(key=generateFireValue)
-        loc = res_neigbhor[0]
-        self.burnLocation(loc)
+
+        for i in res_neigbhor:
+            if i.terrain == TerrainType.River or i.onFire == True:
+                res_neigbhor.remove(i)
+        if len(res_neigbhor) > 0:
+            loc = res_neigbhor[0]
+            self.burnLocation(loc)
 
     def toCsv(self):
         csv = []
