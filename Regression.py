@@ -81,3 +81,7 @@ CI_temp = [tempSlope - tCrit*standardErrors[1],tempSlope + tCrit*standardErrors[
 CI_relHumidity = [relHumiditySlope - tCrit*standardErrors[2],relHumiditySlope + tCrit*standardErrors[2]]
 CI_wind = [windSlope - tCrit*standardErrors[3],windSlope + tCrit*standardErrors[3]]
 CI_rain = [rainSlope - tCrit*standardErrors[4],rainSlope + tCrit*standardErrors[4]]
+
+def predictBurnedArea(temp,relHumidity,wind,rain):
+  y = temp*tempSlope + relHumidity*relHumiditySlope + wind*windSlope + rain*rainSlope + yIntercept
+  return y
