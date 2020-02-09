@@ -1,22 +1,25 @@
+$(document.body).on('click', 'td', changeColor);
 
-function generateGrid( rows, cols ) {
-    var grid = "<table>";
-    for ( row = 1; row <= rows; row++ ) {
-        grid += "<tr>"; 
-        for ( col = 1; col <= cols; col++ ) {      
-            grid += "<td></td>";
-        }
-        grid += "</tr>"; 
+function generateGrid(rows, cols) {
+  var grid = "<table>";
+  for (row = 1; row <= rows; row++) {
+    grid += "<tr>";
+    for (col = 1; col <= cols; col++) {
+      var cell = "<td> </td>";
+      grid += cell;
     }
-    return grid;
+    grid += "</tr>";
+  }
+  $("#tableContainer").empty();
+  $("#tableContainer").append(grid);
+  return grid;
 }
 
-$( "#tableContainer" ).append( generateGrid( 5, 5) );
-
-$( "td" ).click(function() {
-    var index = $( "td" ).index( this );
-    var row = Math.floor( ( index ) / 5) + 1;
-    var col = ( index % 5 ) + 1;
-    $( "span" ).text( "That was row " + row + " and col " + col );
-    $( this ).css( 'background-color', 'red' );
-});
+function changeColor() {
+  const $this = $(this);
+  if ($this.hasClass("clicked")) {
+    $this.removeClass("clicked")
+  } else {
+    $this.addClass("clicked");
+  }
+}
